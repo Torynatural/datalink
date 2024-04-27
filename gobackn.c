@@ -28,7 +28,7 @@ struct Packet {
 
 static unsigned char frame_nr = 0, nbuffered;
 static unsigned char frame_expected = 0;
-static bool phl_ready = 0;
+static bool phl_ready = false;
 static struct Packet out_buf[NR_BUFS]; // 接收窗口
 static struct Packet in_buf[NR_BUFS];  // 发送窗口
 static unsigned int arrived[NR_BUFS];   // 标记帧是否到达的bit map
@@ -42,7 +42,7 @@ static void put_frame(unsigned char* frame, int len)
 {
     *(unsigned int*)(frame + len) = crc32(frame, len);
     send_frame(frame, len + 4);
-    phl_ready = 0;
+    phl_ready = false;
 }
 
 static void send_data_frame(unsigned char fk, unsigned int frame_nr, unsigned int frame_expected)
