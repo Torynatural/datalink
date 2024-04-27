@@ -9,7 +9,7 @@
 #define PKT_LEN 256
 #define NR_BUFS ((MAX_SEQ + 1) / 2)
 #define DATA_MAX_TIME 5000
-#define ACK_MAX_TIME 285
+#define ACK_MAX_TIME 280
 
 #define inc(k) k = (k + 1) & MAX_SEQ
 
@@ -31,7 +31,7 @@ static unsigned char frame_expected = 0;
 static bool phl_ready = false;
 static struct Packet out_buf[NR_BUFS]; // 接收窗口
 static struct Packet in_buf[NR_BUFS];  // 发送窗口
-static unsigned int arrived[NR_BUFS];   // 标记帧是否到达的bit map
+static bool arrived[NR_BUFS];   // 标记帧是否到达的bit map
 
 
 static bool between(unsigned int a, unsigned int b, unsigned int c){
