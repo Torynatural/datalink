@@ -111,6 +111,7 @@ int main(int argc, char** argv)
                 break;
             if (len >= 5 || crc32((unsigned char*)&f, len) != 0) {
                 dbg_event("**** Receiver Error, Bad CRC Checksum\n");
+                send_data_frame(FRAME_NAK, 0, f.seq);
                 break;
             }
 
