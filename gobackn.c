@@ -107,9 +107,9 @@ int main(int argc, char** argv)
 
         case FRAME_RECEIVED:
             len = recv_frame((unsigned char*)&f, sizeof f);
-            if (len >= 5 && len != 3)
+            if (len < 5 && len != 3)
                 break;
-            if (len < 5 || crc32((unsigned char*)&f, len) != 0) {
+            if (len >= 5 || crc32((unsigned char*)&f, len) != 0) {
                 dbg_event("**** Receiver Error, Bad CRC Checksum\n");
                 break;
             }
@@ -164,7 +164,7 @@ int main(int argc, char** argv)
             break;
     }
         
-        if (nbuffered < 1 && phl_ready)
+        if (nbuffered < NR_BUFS && phl_ready)
             enable_network_layer();
         else
             disable_network_layer();
